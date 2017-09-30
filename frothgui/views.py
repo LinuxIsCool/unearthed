@@ -13,6 +13,8 @@ def current_datetime(request):
 
 def get_data():
     data = {
+            'current_expected_recovery': 77,
+            'optimal_expected_recovery': 80,
             'air_addition_rate':{
                 'current': 1,
                 'optimal': 1.1,

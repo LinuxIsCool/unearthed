@@ -1,5 +1,8 @@
 <!-- <html><body>It is now {{ date }}.</body></html></body></html> -->
 <!DOCTYPE HTML>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+
 <html>
 <head>  
 
@@ -21,7 +24,7 @@ var airChart = new CanvasJS.Chart("chartContainer1", {
 	},
 	data: [{        
 		type: "column",  
-		showInLegend: true, 
+		showInLegend: false, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
 		dataPoints: [       
@@ -43,7 +46,7 @@ var frothChart = new CanvasJS.Chart("chartContainer2", {
 	},
 	data: [{        
 		type: "column",  
-		showInLegend: true, 
+		showInLegend: false, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
 		dataPoints: [       
@@ -65,7 +68,7 @@ var slurryChart = new CanvasJS.Chart("chartContainer3", {
 	},
 	data: [{        
 		type: "column",  
-		showInLegend: true, 
+		showInLegend: false, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
 		dataPoints: [       
@@ -87,7 +90,7 @@ var activatorChart = new CanvasJS.Chart("chartContainer4", {
 	},
 	data: [{        
 		type: "column",  
-		showInLegend: true, 
+		showInLegend: false, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
 		dataPoints: [       
@@ -109,7 +112,7 @@ var collectorChart = new CanvasJS.Chart("chartContainer5", {
 	},
 	data: [{        
 		type: "column",  
-		showInLegend: true, 
+		showInLegend: false, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
 		dataPoints: [       
@@ -122,43 +125,49 @@ collectorChart.render();
 
 }
 </script>
-  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
   <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-  <!-- <script> -->
-  <!-- $( function() { -->
-  <!--   $( "#slider-vertical" ).slider({ -->
-  <!--     orientation: "vertical", -->
-  <!--     range: "min", -->
-  <!--     min: 0, -->
-  <!--     max: 100, -->
-  <!--     value: 60, -->
-  <!--     slide: function( event, ui ) { -->
-  <!--       $( "#amount" ).val( ui.value ); -->
-  <!--     } -->
-  <!--   }); -->
-  <!--   $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) ); -->
-  <!-- } ); -->
-  <!-- </script> -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#slider-vertical" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+  } );
+  </script>
 </head>
 <body>
     <div class="container-fluid">
         <div class="jumbotron">
             <h1>Froth Optimization Panel</h1>
         </div>
-        <div class="row">
-            <div class="col">
-				<!-- <p> -->
-				<!--   <label for="amount">Volume:</label> -->
-				<!--   <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"> -->
-				<!-- </p> -->
-				<!--   -->
-				<!-- <div id="slider-vertical" style="height:200px;"></div> -->
+        <div class="row" align="center">
+            <div class="col col-centered">
+            <div class="col-md-6">
+				<h3>
+				  <label for="amount">Minimum Grade Threshold:</label>
+				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				</h3>
+				<div id="slider-vertical" style="height:200px;"></div>
             </div>
-            <div class="col">
+            <div class="col-md-6">
+                <button class=btn-primary>Calculate</button>
             </div>
-        </div>
+            </div>
+            <div class="col col-block">
+                <h3>Expected Recovery</h3>
+                <h3>Current Settings: {{ data.current_expected_recovery }}%</h3>
+                <h3>Optimal Settings: {{ data.optimal_expected_recovery }}%</h3>
+            </div>
+        </div><br>
         <div class="row">
             <div class="col">
                 <div id="chartContainer1" style="height: 370px; width: 100%;"></div>

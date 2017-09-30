@@ -2,14 +2,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
 <script>
 window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
+var airChart = new CanvasJS.Chart("chartContainer1", {
 	animationEnabled: true,
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	title:{
-		text: "Top Oil Reserves"
+		text: "Air Addition Rate"
 	},
 	axisY: {
 		title: "Reserves(MMbbl)"
@@ -19,25 +24,159 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		showInLegend: true, 
 		legendMarkerColor: "grey",
 		legendText: "MMbbl = one million barrels",
-		dataPoints: [      
-			{ y: 300878, label: "Venezuela" },
-			{ y: 266455,  label: "Saudi" },
-			{ y: 169709,  label: "Canada" },
-			{ y: 158400,  label: "Iran" },
-			{ y: 142503,  label: "Iraq" },
-			{ y: 101500, label: "Kuwait" },
-			{ y: 97800,  label: "UAE" },
-			{ y: 80000,  label: "Russia" }
+		dataPoints: [       
+        { y: {{ data.air_addition_rate.current }}, label: "Current Setting" },
+        { y: {{ data.air_addition_rate.optimal }},  label: "Optimal Setting" },
 		]
 	}]
 });
-chart.render();
+airChart.render();
+
+var frothChart = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Frother Addition Rate"
+	},
+	axisY: {
+		title: "Reserves(MMbbl)"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		legendText: "MMbbl = one million barrels",
+		dataPoints: [       
+        { y: {{ data.frother_addition_rate.current }}, label: "Current Setting" },
+        { y: {{ data.frother_addition_rate.optimal }},  label: "Optimal Setting" },
+		]
+	}]
+});
+frothChart.render();
+
+var slurryChart = new CanvasJS.Chart("chartContainer3", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Slurry Density"
+	},
+	axisY: {
+		title: "Reserves(MMbbl)"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		legendText: "MMbbl = one million barrels",
+		dataPoints: [       
+        { y: {{ data.slurry_density.current }}, label: "Current Setting" },
+        { y: {{ data.slurry_density.optimal }},  label: "Optimal Setting" },
+		]
+	}]
+});
+slurryChart.render();
+
+var activatorChart = new CanvasJS.Chart("chartContainer4", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Activator Addition Rate"
+	},
+	axisY: {
+		title: "Reserves(MMbbl)"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		legendText: "MMbbl = one million barrels",
+		dataPoints: [       
+        { y: {{ data.activator_addition_rate.current }}, label: "Current Setting" },
+        { y: {{ data.activator_addition_rate.optimal }},  label: "Optimal Setting" },
+		]
+	}]
+});
+activatorChart.render();
+
+var collectorChart = new CanvasJS.Chart("chartContainer5", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Collector Addition Rate"
+	},
+	axisY: {
+		title: "Reserves(MMbbl)"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		legendText: "MMbbl = one million barrels",
+		dataPoints: [       
+        { y: {{ data.collector_addition_rate.current }}, label: "Current Setting" },
+        { y: {{ data.collector_addition_rate.optimal }},  label: "Optimal Setting" },
+		]
+	}]
+});
+collectorChart.render();
 
 }
 </script>
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+  <!-- <script> -->
+  <!-- $( function() { -->
+  <!--   $( "#slider-vertical" ).slider({ -->
+  <!--     orientation: "vertical", -->
+  <!--     range: "min", -->
+  <!--     min: 0, -->
+  <!--     max: 100, -->
+  <!--     value: 60, -->
+  <!--     slide: function( event, ui ) { -->
+  <!--       $( "#amount" ).val( ui.value ); -->
+  <!--     } -->
+  <!--   }); -->
+  <!--   $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) ); -->
+  <!-- } ); -->
+  <!-- </script> -->
 </head>
 <body>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Froth Optimization Panel</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+				<!-- <p> -->
+				<!--   <label for="amount">Volume:</label> -->
+				<!--   <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"> -->
+				<!-- </p> -->
+				<!--   -->
+				<!-- <div id="slider-vertical" style="height:200px;"></div> -->
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+            </div>
+            <div class="col">
+                <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col">
+                <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+            </div>
+            <div class="col">
+                <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div><br>
+        <div id="chartContainer5" style="height: 370px; width: 100%;"></div>
+    </div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

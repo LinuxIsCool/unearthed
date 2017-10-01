@@ -7,14 +7,10 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponse
 import datetime
 
-def current_datetime(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>" % now
-    return HttpResponse(html)
 
 def get_data(grade_threshold):
-    current_expected_recovery = grade_threshold * 0.9
-    optimal_expected_recovery = grade_threshold * 1.1
+    current_expected_recovery = 100 - grade_threshold  * 8
+    optimal_expected_recovery = 100 - grade_threshold  * 5
     ac = grade_threshold * 1.2
     ao = grade_threshold * 1.1
     fc = grade_threshold * 2.1
@@ -27,7 +23,7 @@ def get_data(grade_threshold):
     co = grade_threshold * 0.4
 
     data = {
-            'grade_threshold': grade_threshold*100,
+            'grade_threshold': grade_threshold,
             'current_expected_recovery': current_expected_recovery,
             'optimal_expected_recovery': optimal_expected_recovery,
             'air_addition_rate':{
@@ -54,11 +50,8 @@ def get_data(grade_threshold):
     return data
 
 def show_data(request, grade_threshold=0.8):
-    now = datetime.datetime.now()
+    if request.method == 'POST':
+        grade_threshold = float(request.POST.get("grade_threshold"))
     data = get_data(grade_threshold)
-    try:
-        value = request.GET['amount']
-    except:
-        MultiValueDictKeyError
 
     return render(request, 'frothgui/data.html', {'data':data})

@@ -19,9 +19,6 @@ var airChart = new CanvasJS.Chart("chartContainer1", {
 	title:{
 		text: "Air Addition Rate"
 	},
-	axisY: {
-		title: "Reserves(MMbbl)"
-	},
 	data: [{        
 		type: "column",  
 		showInLegend: false, 
@@ -40,9 +37,6 @@ var frothChart = new CanvasJS.Chart("chartContainer2", {
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	title:{
 		text: "Frother Addition Rate"
-	},
-	axisY: {
-		title: "Reserves(MMbbl)"
 	},
 	data: [{        
 		type: "column",  
@@ -63,9 +57,6 @@ var slurryChart = new CanvasJS.Chart("chartContainer3", {
 	title:{
 		text: "Slurry Density"
 	},
-	axisY: {
-		title: "Reserves(MMbbl)"
-	},
 	data: [{        
 		type: "column",  
 		showInLegend: false, 
@@ -84,9 +75,6 @@ var activatorChart = new CanvasJS.Chart("chartContainer4", {
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	title:{
 		text: "Activator Addition Rate"
-	},
-	axisY: {
-		title: "Reserves(MMbbl)"
 	},
 	data: [{        
 		type: "column",  
@@ -107,9 +95,6 @@ var collectorChart = new CanvasJS.Chart("chartContainer5", {
 	title:{
 		text: "Collector Addition Rate"
 	},
-	axisY: {
-		title: "Reserves(MMbbl)"
-	},
 	data: [{        
 		type: "column",  
 		showInLegend: false, 
@@ -125,24 +110,6 @@ collectorChart.render();
 
 }
 </script>
-  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#slider-vertical" ).slider({
-      orientation: "vertical",
-      range: "min",
-      min: 0,
-      max: 100,
-      value: {{ data.grade_threshold }},
-      slide: function( event, ui ) {
-        $( "#amount" ).val( ui.value );
-      }
-    });
-    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
-  } );
-  </script>
 </head>
 <body>
     <div class="container-fluid">
@@ -151,16 +118,16 @@ collectorChart.render();
         </div>
         <div class="row" align="center">
             <div class="col col-centered">
-            <div class="col-md-6">
-				<h3>
-				  <label for="amount">Minimum Grade Threshold:</label>
-				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-				</h3>
-				<div id="slider-vertical" style="height:200px;"></div>
-            </div>
-            <div class="col-md-6">
-                <a class="button btn-primary" href="{% url 'index' grade_threshold = %}">Calculate</a>
-            </div>
+                <div class="col-md-6">
+                    <h3>Minimum Grade Threshold:</h3>
+                </div>
+                <div class="col-md-6">
+                    <form method="POST" action="">
+                          {% csrf_token %}
+                        <input type="text" name="grade_threshold" value="{{ data.grade_threshold }}">
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
             </div>
             <div class="col col-block">
                 <h3>Expected Recovery</h3>

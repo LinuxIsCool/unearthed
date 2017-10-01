@@ -135,7 +135,7 @@ collectorChart.render();
       range: "min",
       min: 0,
       max: 100,
-      value: 60,
+      value: {{ data.grade_threshold }},
       slide: function( event, ui ) {
         $( "#amount" ).val( ui.value );
       }
@@ -159,7 +159,7 @@ collectorChart.render();
 				<div id="slider-vertical" style="height:200px;"></div>
             </div>
             <div class="col-md-6">
-                <button class=btn-primary>Calculate</button>
+                <a class="button btn-primary" href="{% url 'index' grade_threshold = %}">Calculate</a>
             </div>
             </div>
             <div class="col col-block">

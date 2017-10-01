@@ -27,7 +27,7 @@ from django.conf.urls import url
 from frothgui import views
 
 urlpatterns = [
-    url(r'^$', views.show_data),
+    url(r'^$', views.show_data, name='index'),
     ]
 #
 #  # Serializers define the API representation.
